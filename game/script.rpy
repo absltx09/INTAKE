@@ -236,9 +236,9 @@ label question_20:
         "I would not know":
             pass
 
-label question_21:
-    "Question [x] took you longer than the others. What caused that?"
-    menu: 
+# label question_21:
+    # "Question [x] took you longer than the others. What caused that?"
+    # menu: 
 
 
 
