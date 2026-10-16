@@ -177,8 +177,48 @@ screen hud():
             text "REVIEWED ________" font fnt size 10 color "#6e6a64"
         null height 10
         text "NO ERROR" font fnt size 11 color ink
-            
 
+# backgrounds
+image bg samsara = Solid("#f6f4ee")
+image bg royce = Solid("#0b0805")
+image bg council = Solid("#151413")
+
+# Freeze
+screen freeze(t=3.0, msg="LOADING"):
+    modal True
+    zorder 100
+    timer t action Return()
+    text msg font MONO size 14 color "#d9a441" align (0.5, 0.95)
+
+# results output
+screen intake_result():
+    modal True
+    $ mr, pm = mean_response(), predicted()
+    add Solid("#151413")
+    vbox:
+        xpos 60 ypos 40 spacing 8
+        text "CANDIDATE FILE" font MONO size 13 color "#6e6a64"
+        text "[player_name!u]" font MONO size 30 color "#f9e8ac"
+        null height 8
+        text "CONTACT ........... [player_day!u] / [player_time!u]" font MONO size 13 color "#c9c6bf"
+        text "NOTIFY ............ [player_contact!u]" font MONO size 13 color "#c9c6bf"
+        text "ITEMS ............. [qnum] / [q_total]" font MONO size 13 color "#c9c6bf"
+        text "REVISIONS ......... [revisions]" font MONO size 13 color "#c9c6bf"
+        text "MEAN RESPONSE ..... [mr]" font MONO size 13 color "#c9c6bf"
+        text "PREDICTED METHOD .. [pm]" font MONO size 13 color "#c9c6bf"
+        text "OBSERVATION CONF .. [confidence]%" font MONO size 13 color "#c9c6bf"
+        null height 14
+        text "CANDIDATE POTENTIAL ..... NOT DETECTED" font MONO size 15 color "#912925"
+        text "PLACEMENT ............... ROYCE TECHNOLOGIES" font MONO size 13 color "#c9c6bf"
+        null height 14
+        text "The instrument continues to measure capability. Results filed and held." font MONO size 12 color "#c9c6bf"
+        text "[[ WITHHELD ]" font MONO size 12 "#6e6a64"
+        null height 14
+        text "REVIEWED _______________" font MONO size 12 color "#6e6a64"
+    hbox:
+        xpos 60 yalign 0.95 spacing 20
+        textbutton "SAVE A COPY" action Function(renpy.screenshot, "intake_result_file.png") text_font MONO text_size 13 text_color "#d4af37"
+        textbutton "CLOSE" action Return() text_font MONO text_size 13 text_color "#d4af37"
 
 
 
