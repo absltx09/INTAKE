@@ -98,12 +98,87 @@ style samsara_vbox is vbox:
 style samsara_button is button:
     background "#efece4"
     hover_background "#dcd6c8"
-    padding(18, 9)
+    padding (18, 9)
     xsize 400
 style samsara_button_text is button_text:
     font SANS
     size 17
     color "#2b2b2b"
     hover_color "#000000"
+
+# royce
+style royce_vbox is vbox:
+    spacing 4
+style royce_button is button:
+    background Solid("#120d06")
+    hover_background Solid("#3a2a0c")
+    padding (14, 7)
+    xsize 460
+style royce_button_text is button_text:
+    font MONO
+    size 16
+    color "#d9a441"
+    hover_color "#ffd72a"
+
+# council
+style council_vbox is vbox:
+    spacing 10
+style council_button is button:
+    background None
+    hover_background Solid("#1e1c1a")
+    padding (14, 7)
+    xsize 460
+style council_button_text is button_text:
+    font MONO
+    size 16
+    color "#c9c6bf"
+    hover_color "#f9e8ac"
+
+# Choice screen
+screen choice(items):
+    style_prefix skin
+    vbox:
+        xalign 0.08
+        yalign 0.62
+        for i in items:
+            $ breath = i.kwargs.get("breath", False) 
+            textbutton i.caption:
+                action i.action
+                hovered (Function(sfx, "audio/breath.ogg") if breath else None)
+                unhovered (Stop("sound") if breath else None)
+
+# Status column
+screen hud():
+    zorder 50
+    timer 1.0 repeat True action Function(renpy.restart_interaction)
+
+    $ dim = (skin == "council")
+    $ ink = {"samsara": "#2b2b2b", "royce": "#d9a441", "council": "#c9c6bf"}[skin]
+    $ fnt = SANS if skin == "samsara" else MONO
+    $ el, mr, lq = elapsed_text(), mean_response(), longest_q()
+    $ header = {"samsara", "SAMSARA STAFFING SERVICES  ·  CANDIDATE ONBOARDING",
+                "royce", "RT//NODE 07 · INTAKE SUBSYSTEM",
+                "council", "HELD"}[skin]
+    
+    text header font fnt size 13 color ink xalign 1.0 xoffset -24 ypos 18
+    text "QUESTION [qnum] / [qtotal]" font fnt size 13 color ink xalign 1.0 xoffset -24 ypos 18
+
+    vbox: 
+        xpos 560 ypos 70 spacing 6
+        text "ELAPSED        [el]" font fnt size 12 color ink
+        text "REVISIONS      [revisions]" font fnt size 12 color ink
+        text "MEAN RESPONSE  [mr]" font fnt size 12 color ink
+        text "LONGEST ITEM   [lq]" font fnt size 12 color ink
+        null height 10
+        text "OBSERVATION CONFIDENCE" font fnt size 12 color ink
+        bar value StaticValue(confidence, 100) xsize 200 ysize 8 left_bar Solid(ink if not dim else "#4a4844") right_bar Solid("00000022")
+        if dim:
+            text "INSTRUMENT INHERITED.\nNOT RECALIBRATED." font fnt size 10 color "#6e6a64"
+            text "REVIEWED ________" font fnt size 10 color "#6e6a64"
+        null height 10
+        text "NO ERROR" font fnt size 11 color ink
+            
+
+
 
 
