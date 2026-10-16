@@ -1,0 +1,18 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/script.rpy", line 2: expected statement.
+    config.screen_width = 800
+                        ^
+
+File "game/script.rpy", line 3: expected statement.
+    config.screen_height = 600
+                         ^
+
+File "game/script.rpy", line 4: expected statement.
+    config.window_title = "Samsara Staffing Services - Intake Survey"
+                        ^
+
+Ren'Py Version: Ren'Py 8.5.3.26051504
+Fri Oct 16 09:56:37 2026

@@ -1,12 +1,3 @@
-init:
-    $ config.screen_width = 800
-    $ config.screen_height = 600
-    $ config.window_title = "Samsara Staffing Services - Intake Survey"
-    $ default player_name = "New Employee"
-    $ default player_day = "Day"
-    $ default player_time = "Time"
-    $ default player_contact = "Emergency Contact"
-
 label start:
     $ save_name = "BOOT UP"
     "Welcome to Samsara Staffing Services."
@@ -80,7 +71,7 @@ label question_7:
     $ save_name = "QUESTION 7"
     "Question 7."
     "If something happened to you, who would be first to notice your absence?"
-    $ player_contact = "Enter the name of your emergency contact."
+    $ player_contact = renpy.input("Enter the name of your emergency contact.")
 
 label question_8:
     $ save_name = "QUESTION 8"
