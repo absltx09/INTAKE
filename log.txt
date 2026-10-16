@@ -1,32 +1,32 @@
-2026-10-16 17:02:53 UTC
+2026-10-16 18:53:52 UTC
 macOS-26.5.1-arm64-arm-64bit
 Ren'Py 8.5.3.26051504
 
-Early init took 29 ms
-Loading error handling took 22 ms
-Loading script took 433 ms
-Loading save slot metadata took 2 ms
+Early init took 26 ms
+Loading error handling took 13 ms
+Loading script took 54 ms
+Loading save slot metadata took 6 ms
 Loading persistent took 0 ms
-Running init code took 31 ms
-Loading analysis data took 0 ms
+Running init code took 22 ms
+Loading analysis data took 2 ms
 Analyze and compile ATL took 1 ms
-Reloading save slot metadata took 0 ms
-Backing up script files to '/Users/abhinava/Library/RenPy/backups/intake_game':
-Dump and make backups took 23 ms
+Reloading save slot metadata took 4 ms
+Backing up script files to '/Users/abhinava/Library/RenPy/backups/INTAKE':
+Dump and make backups took 24 ms
 Cleaning cache took 0 ms
 Making clean stores took 0 ms
-Initial gc took 18 ms
+Initial gc took 22 ms
 DPI scale factor: 1.000000
 Creating interface object took 0 ms
 Init translation took 0 ms
 Cleaning stores took 0 ms
 Load screen analysis took 0 ms
-Analyze screens took 10 ms
+Analyze screens took 4 ms
 Save screen analysis took 5 ms
-Save pyanalysis took 2 ms
-Save bytecode took 15 ms
-Running _start took 0 ms
-Interface start took 541 ms
+Save pyanalysis took 0 ms
+Save bytecode took 17 ms
+Running _start took 1 ms
+Interface start took 679 ms
 
 Initializing gl2 renderer:
 primary display bounds: (0, 0, 1440, 900)
@@ -38,20 +38,28 @@ Version: '2.1 Metal - 90.5'
 Display Info: <Info({'bitsize': 32, 'bytesize': 4, 'masks': (16711680, 65280, 255, 4278190080), 'shifts': (16, 8, 0, 24), 'losses': (0, 0, 0, 0), 'current_w': 1440, 'current_h': 900, 'refresh_rate': 60, 'hw': False, 'wm': True, 'video_mem': 268435456, 'blit_hw': False, 'blit_hw_CC': False, 'blit_hw_A': False, 'blit_sw': False, 'blit_sw_CC': False, 'blit_sw_A': False})>
 Screen sizes: virtual=(800, 600) physical=(800, 600) drawable=(1600, 1200)
 Maximum texture size: 4096x4096
-Could not open 'cache/shaders.txt':
 
 Full traceback:
-  File "game/script.rpy", line 80, in script
-    menu:
-  File "renpy/ast.py", line 1825, in execute
-    choice = renpy.exports.menu(choices, self.set, args, kwargs, item_arguments)
-             ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/exports/menuexports.py", line 135, in menu
-    rv = renpy.store.menu(new_items)
-         ~~~~~~~~~~~~~~~~^^^^^^^^^^^
-  File "renpy/exports/menuexports.py", line 418, in display_menu
-    rv = renpy.ui.interact(mouse="menu", type=type, roll_forward=roll_forward)
-         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "game/script.rpy", line 5, in script
+    "Answer each question as truthfully as possible."
+  File "renpy/ast.py", line 2935, in execute
+    Say.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "renpy/ast.py", line 994, in execute
+    renpy.exports.say(who, what, *args, **kwargs)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/exports/sayexports.py", line 129, in say
+    who(what, *args, **kwargs)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/character.py", line 1565, in __call__
+    self.do_display(who, what, cb_args=self.cb_args, dtt=dtt, **display_args)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/character.py", line 1220, in do_display
+    display_say(who, what, self.do_show, **display_args)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/character.py", line 902, in display_say
+    rv = renpy.ui.interact(mouse="say", type=type, roll_forward=roll_forward)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "renpy/ui.py", line 306, in interact
     rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -89,6 +97,6 @@ Full traceback:
 AttributeError: 'Layout' object has no attribute 'yesno_prompt'
 
 While running game code:
-  File "game/script.rpy", line 80, in script
-    menu:
+  File "game/script.rpy", line 5, in script
+    "Answer each question as truthfully as possible."
 AttributeError: 'Layout' object has no attribute 'yesno_prompt'
