@@ -3,6 +3,9 @@ define config.window_title = "Samsara Staffing Services - Intake Survey"
 define config.screen_height = 600
 define config.screen_width = 800
 define config.rollback_enabled = False
+define config.has_sound = False
+define config.has_music = False
+define config.has_voice = False
 
 define SANS = "DejaVuSans.ttf"
 define MONO = "fonts/mono.ttf" if renpy.loadable("fonts/mono.ttf") else "DejaVu.ttf"
@@ -51,6 +54,10 @@ init python:
         store.revised_q = store.qnum
         store.qnum += 1
         store.confidence = min(97, store.confidence + 6)
+
+    def elapsed_text():
+        s = int(renpy.get_game_runtime())
+        return "%02d:%02d" % (s // 60, s % 60)
 
     def elapsed_minutes():
         return max(1, int(renpy.get_game_runtime() // 60))
@@ -156,9 +163,9 @@ screen hud():
     $ ink = {"samsara": "#2b2b2b", "royce": "#d9a441", "council": "#c9c6bf"}[skin]
     $ fnt = SANS if skin == "samsara" else MONO
     $ el, mr, lq = elapsed_text(), mean_response(), longest_q()
-    $ header = {"samsara", "SAMSARA STAFFING SERVICES  ·  CANDIDATE ONBOARDING",
-                "royce", "RT//NODE 07 · INTAKE SUBSYSTEM",
-                "council", "HELD"}[skin]
+    $ header = {"samsara": "SAMSARA STAFFING SERVICES  ·  CANDIDATE ONBOARDING",
+                "royce": "RT//NODE 07 · INTAKE SUBSYSTEM",
+                "council": "HELD"}[skin]
     
     text header font fnt size 13 color ink xalign 1.0 xoffset -24 ypos 18
     text "QUESTION [qnum] / [qtotal]" font fnt size 13 color ink xalign 1.0 xoffset -24 ypos 18
@@ -212,7 +219,7 @@ screen intake_result():
         text "PLACEMENT ............... ROYCE TECHNOLOGIES" font MONO size 13 color "#c9c6bf"
         null height 14
         text "The instrument continues to measure capability. Results filed and held." font MONO size 12 color "#c9c6bf"
-        text "[[ WITHHELD ]" font MONO size 12 "#6e6a64"
+        text "[[ WITHHELD ]" font MONO size 12 color "#6e6a64"
         null height 14
         text "REVIEWED _______________" font MONO size 12 color "#6e6a64"
     hbox:

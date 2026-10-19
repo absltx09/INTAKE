@@ -1,70 +1,53 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 5, in script
-    "Answer each question as truthfully as possible."
-AttributeError: 'Layout' object has no attribute 'yesno_prompt'
+  File "game/script.rpy", line 176, in script
+    label question_13:
+RuntimeError: can't start new thread
 
 -- Full Traceback ------------------------------------------------------------
 
 Traceback (most recent call last):
-  File "game/script.rpy", line 5, in script
-    "Answer each question as truthfully as possible."
+  File "game/script.rpy", line 176, in script
+    label question_13:
   File "renpy/ast.py", line 2935, in execute
     Say.execute(self)
     ~~~~~~~~~~~^^^^^^
-  File "renpy/ast.py", line 994, in execute
-    renpy.exports.say(who, what, *args, **kwargs)
-    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/exports/sayexports.py", line 129, in say
-    who(what, *args, **kwargs)
-    ~~~^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/character.py", line 1565, in __call__
-    self.do_display(who, what, cb_args=self.cb_args, dtt=dtt, **display_args)
-    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/character.py", line 1220, in do_display
-    display_say(who, what, self.do_show, **display_args)
-    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/character.py", line 902, in display_say
-    rv = renpy.ui.interact(mouse="say", type=type, roll_forward=roll_forward)
-         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/ui.py", line 306, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/display/core.py", line 2163, in interact
-    repeat, rv = self.interact_core(
-                 ~~~~~~~~~~~~~~~~~~^
-        preloads=preloads,
-        ^^^^^^^^^^^^^^^^^^
-    ...<4 lines>...
-        **kwargs,
-        ^^^^^^^^^
+  File "renpy/ast.py", line 965, in execute
+    statement_name(stmt_name)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "renpy/ast.py", line 547, in statement_name
+    i(name)
+    ~^^^^^^
+  File "renpy/common/000window.rpy", line 132, in _window_auto_callback
+    _window_show(auto=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^
+  File "renpy/common/000window.rpy", line 75, in _window_show
+    renpy.with_statement(trans)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "renpy/exports/statementexports.py", line 253, in with_statement
+    return renpy.game.interface.do_with(trans, paired, clear=clear)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/display/core.py", line 1478, in do_with
+    return self.interact(
+           ~~~~~~~~~~~~~^
+        trans_pause=True, suppress_overlay=not renpy.config.overlay_during_with, mouse="with", clear=clear
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
-  File "renpy/display/core.py", line 3096, in interact_core
-    self.quit_event()
-    ~~~~~~~~~~~~~~~^^
-  File "renpy/display/core.py", line 1716, in quit_event
-    renpy.display.behavior.run(renpy.config.quit_action)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/display/behavior.py", line 411, in run
-    return action(*args, **kwargs)
-           ~~~~~~^^^^^^^^^^^^^^^^^
-  File "renpy/common/00action_menu.rpy", line 271, in __call__
-    layout.yesno_screen(layout.QUIT, Quit(False))
-    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "renpy/common/00layout.rpy", line 517, in yesno_screen
-    elif renpy.invoke_in_new_context(layout.invoke_yesno_prompt, None, message):
-         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
-  File "renpy/game.py", line 285, in invoke_in_new_context
-    return callable(*args, **kwargs)
-           ~~~~~~~~^^^^^^^^^^^^^^^^^
-  File "renpy/common/00layout.rpy", line 472, in invoke_yesno_prompt
-    rv = layout.yesno_prompt(*args)
-         ^^^^^^^^^^^^^^^^^^^       
-AttributeError: 'Layout' object has no attribute 'yesno_prompt'
+  File "renpy/display/core.py", line 2117, in interact
+    self.start()
+    ~~~~~~~~~~^^
+  File "renpy/display/core.py", line 909, in start
+    renpy.audio.audio.init()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "renpy/audio/audio.py", line 1156, in init
+    periodic_thread.start()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "lib/python3.12/threading.py", line 994, in start
+RuntimeError: can't start new thread
 
-macOS-26.5.1-arm64-arm-64bit arm64
+macOS-27.0.1-arm64-arm-64bit arm64
 Ren'Py 8.5.3.26051504
- 
-Fri Oct 16 11:53:57 2026
+throwaway 1.0
+Mon Oct 19 13:02:47 2026
