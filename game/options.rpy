@@ -143,7 +143,7 @@ default preferences.afm_time = 15
 ## This generally should not be changed, and if it is, should always be a
 ## literal string, not an expression.
 
-define config.save_directory = "INTAKE-1"
+define config.save_directory = "INTAKE-1792443455"
 
 
 ## Icon ########################################################################

@@ -1,6 +1,7 @@
 # Settings
 define config.window_title = "Samsara Staffing Services - Intake Survey"
 define config.rollback_enabled = False
+define config.has_autosave = False
 
 define SANS = "DejaVuSans.ttf"
 define MONO = "fonts/mono.ttf" if renpy.loadable("fonts/mono.ttf") else "DejaVuSans.ttf"
@@ -155,7 +156,7 @@ screen choice(items):
 # Status column
 screen hud():
     zorder 50
-    timer 1.0 repeat True action Function(renpy.restart_interaction)
+    # timer 1.0 repeat True action Function(renpy.restart_interaction)
 
     $ dim = (skin == "council")
     $ ink = {"samsara": "#2b2b2b", "royce": "#d9a441", "council": "#c9c6bf"}[skin]
