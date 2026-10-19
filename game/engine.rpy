@@ -1,9 +1,6 @@
 # Settings
 define config.window_title = "Samsara Staffing Services - Intake Survey"
 define config.rollback_enabled = False
-define config.has_sound = False
-define config.has_music = False
-define config.has_voice = False
 
 define SANS = "DejaVuSans.ttf"
 define MONO = "fonts/mono.ttf" if renpy.loadable("fonts/mono.ttf") else "DejaVuSans.ttf"
@@ -78,7 +75,7 @@ init python:
 
     def set_title(t):
         store.title_now = t
-        # config.window_title = t
+        config.window_title = t
 
     def sfx(path, channel="sound"):
         if renpy.loadable(path):
