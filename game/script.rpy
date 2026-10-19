@@ -54,7 +54,7 @@ label question_4:
     $ save_name = "QUESTION 4"
     $ ask(4)
     "Question [qnum]. What are the best times to reach you?"
-    $ player_time = renpy.input("Enter which times you are available.", length=32).strip() or "a conventient time"
+    $ player_time = renpy.input("Enter which times you are available.", length=32).strip() or "a convenient time"
     $ record(player_time, typed=True)
 
 label question_5:
@@ -199,7 +199,10 @@ label question_14:
             $ record("no")
 
 label question_15:
-    "If justice were impossible, would revenge be enough?"
+    $ save_name = "██████ █"
+    $ ask(15)
+    "Question [qnum]. If justice were impossible, would revenge be enough?"
+label question_15_menu:
     menu:
         set q15_removed
         "yes":
@@ -249,7 +252,7 @@ label question_18:
     $ save_name = "QUESTION 18"
     $ ask(18)
     $ mins = elapsed_minutes()
-    "Question [qnum]. This form has been open for [mins] minutes. Is that longer than you intented?"
+    "Question [qnum]. This form has been open for [mins] minutes. Is that longer than you intended?"
     menu:
         "yes":
             $ record("yes")
@@ -277,7 +280,7 @@ label question_20:
     scene bg council
     $ save_name = "HELD"
     $ ask(20)
-    "Question. [qnum]. How long has the council been aware of you?"
+    "Question [qnum]. How long has the council been aware of you?"
     menu:
         "since I applied":
             $ record("since applied")
@@ -289,6 +292,8 @@ label question_20:
 # phase 4: meta
 label question_21:
     $ save_name = "QUESTION 21"
+    $ ask(21)
+    $ lq = longest_q()
     "Question [qnum]. Question [lq] took you longer than the others. What caused that?"
     menu: 
         "I was thinking":
