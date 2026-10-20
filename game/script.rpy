@@ -147,6 +147,7 @@ label question_11:
     $ set_title("█████ ████████████")
     $ skin = "royce"
     scene bg royce
+    call screen freeze("RT//NODE 07 · HANDSHAKE ........ OK\nSAMSARA FRONT END .............. RELEASED\nCANDIDATE STREAM ............... ATTACHED")
     $ ask(11)
     "Question [qnum]. Are the people in this photo familiar?"
     # royce family photo
@@ -227,7 +228,7 @@ label question_16:
     menu:
         "yes":
             $ record("yes")
-        "no":
+        "no" (alt="yes"):
             $ record("no")
         "unsure":
             $ record("unsure")

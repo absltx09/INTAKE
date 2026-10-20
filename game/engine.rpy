@@ -174,6 +174,7 @@ style council_button_text is button_text:
 screen choice(items):
     style_prefix skin
     default idle = 0
+    default hov = None
     timer 20.0 repeat True action SetScreenVariable("idle", idle + 1)
     
     vbox:
@@ -181,10 +182,10 @@ screen choice(items):
         yalign 0.62
         for i in items:
             $ breath = i.kwargs.get("breath", False) 
-            textbutton i.caption:
+            textbutton (i.kwargs["alt"] if hov == i.caption and "alt" in i.kwargs else i.caption):
                 action i.action
-                hovered (Function(sfx, "audio/breath.ogg") if breath else None)
-                unhovered (Stop("sound") if breath else None)
+                hovered [SetScreenVariable("hov", i.caption), Function(sfx, "audio/breath.ogg") if breath else NullAction()]
+                unhovered [SetScreenVariable("hov", None), Stop("sound")]
     if idle == 1:
         text "Take your time." font MONO size 12 color "#6e6a64" xalign 0.08 yalign 0.92
     elif idle >= 2:
