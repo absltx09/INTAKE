@@ -5,6 +5,8 @@ label start:
     $ save_name = "BOOT UP"
     scene bg samsara
 
+    $ quick_menu = False
+
     if persistent.completed:
         "THIS INTAKE HAS BEEN COMPLETED."
         "PROCEED?"
@@ -274,7 +276,9 @@ label question_19:
             $ record("unsure")
 
 label question_20:
-    call screen freeze(3.0, "RETRIEVING FILE")
+    hide screen hud
+    call screen freeze("RETRIEVING FILE")
+    show screen hud
     $ set_title("COUNCIL")
     $ skin = "council"
     scene bg council
@@ -360,7 +364,9 @@ label intake_end:
     window show
     "Thank you for your participation. Your file has been forwarded."
     hide screen hud
+    window hide
     call screen intake_result
+    window auto
     scene black
     "WE WILL CONTACT YOU ON [player_day!u] AT [player_time!u]."
-    return
+    $ renpy.quit()

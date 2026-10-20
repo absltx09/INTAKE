@@ -32,9 +32,17 @@ default q15_removed = set()
 
 default persistent.completed = False
 
+label main_menu:
+    return
+
 # recording questions
 init python:
     import math
+
+    config.keymap["game_menu"] = []
+    config.keymap["skip"] = []
+    config.keymap["toggle_skip"] = []
+    config.allow_skipping = False
 
     def ask(n):
         store.q_label = n
@@ -90,6 +98,28 @@ init python:
         mp.contact = (store.player_day, store.player_time)
         mp.name = store.player_name
         mp.save()
+
+    def save_copy():
+        import os
+        if renpy.emscripten:
+            renpy.notify("A copy cannot be given to you here. A copy has been kept.")
+            return None
+        home = os.path.expanduser("~")
+        name = "INTAKE_candidate_file.png"
+        for folder in (os.path.join(home, "Desktop"),
+                        os.path.join(home, "Pictures"),
+                        home,
+                        config.savedir):
+            try:
+                if os.path.isdir(folder) and os.access(folder, os.W_OK):
+                    path = os.path.join(folder, name)
+                    renpy.screenshot(path)
+                    renpy.notify("A COPY HAS BEEN SAVED TO " + path.replace(home, "~").upper())
+                    return None
+            except Exception:
+                continue
+        renpy.notify("A copy could not be saved. A copy has also been kept.")
+        return None
 
     mp = MultiPersistent("abslt.registry") 
 
@@ -156,7 +186,7 @@ screen choice(items):
 # Status column
 screen hud():
     zorder 50
-    # timer 1.0 repeat True action Function(renpy.restart_interaction)
+    timer 1.0 repeat True action Function(renpy.restart_interaction)
 
     $ dim = (skin == "council")
     $ ink = {"samsara": "#2b2b2b", "royce": "#d9a441", "council": "#c9c6bf"}[skin]
@@ -190,10 +220,10 @@ image bg royce = Solid("#0b0805")
 image bg council = Solid("#151413")
 
 # Freeze
-screen freeze(msg="LOADING"):
+screen freeze(msg="LOADING", t=3.0):
     modal True
     zorder 100
-    timer t action Return()
+    timer t action Return(True)
     text msg font MONO size 14 color "#d9a441" align (0.5, 0.95)
 
 # results output
@@ -223,7 +253,7 @@ screen intake_result():
         text "REVIEWED _______________" font MONO size 12 color "#6e6a64"
     hbox:
         xpos 60 yalign 0.95 spacing 20
-        textbutton "SAVE A COPY" action Function(renpy.screenshot, "intake_result_file.png") text_font MONO text_size 13 text_color "#d4af37"
+        textbutton "SAVE A COPY" action Function(save_copy) text_font MONO text_size 13 text_color "#d4af37"
         textbutton "CLOSE" action Return() text_font MONO text_size 13 text_color "#d4af37"
 
 
