@@ -9,6 +9,7 @@ label start:
 
     if persistent.completed:
         "THIS INTAKE HAS BEEN COMPLETED."
+        "WELCOME BACK, [persistent.player_name]"
         "PROCEED?"
         menu:
             "proceed":
@@ -26,8 +27,8 @@ label question_1:
     show screen hud
     $ ask(1)
     "Question [qnum]. What is your preferred name?"
-    $ player_name = renpy.input("Type your name here.", length=32).strip() or "New Employee"
-    $ record(player_name, typed=True)
+    $ persistent.player_name = renpy.input("Type your name here.", length=32).strip() or "New Employee"
+    $ record(persistent.player_name, typed=True)
 
 label question_2:
     $ save_name = "QUESTION 2"
@@ -276,6 +277,14 @@ label question_19:
             $ record("unsure")
 
 label question_20:
+    $ import datetime
+    $ now = datetime.datetime.now()
+    $ clock, today = now.strftime("%I:%M %p").lstrip("0"), now.strftime("%A")
+    $ ask(20)
+    "Question [qnum]. It is [clock]. You said the best days to reach you were [player_day]. Today is [today]."
+    "Is anyone else in the room with you?"
+
+label question_21:
     hide screen hud
     call screen freeze("RETRIEVING FILE")
     show screen hud
@@ -283,7 +292,7 @@ label question_20:
     $ skin = "council"
     scene bg council
     $ save_name = "HELD"
-    $ ask(20)
+    $ ask(21)
     "Question [qnum]. How long has the council been aware of you?"
     menu:
         "since I applied":
@@ -294,9 +303,9 @@ label question_20:
             $ record("would not know")
 
 # phase 4: meta
-label question_21:
-    $ save_name = "QUESTION 21"
-    $ ask(21)
+label question_22:
+    $ save_name = "QUESTION 22"
+    $ ask(22)
     $ lq = longest_q()
     "Question [qnum]. Question [lq] took you longer than the others. What caused that?"
     menu: 
@@ -310,22 +319,22 @@ label question_21:
             $ record("don't recall")
     $ qtotal = 24
     if revisions:
-        jump question_22
-    else:
         jump question_23
+    else:
+        jump question_24
 
     
-label question_22:
-    $ save_name = "QUESTION 22"
-    $ ask(22)
+label question_23:
+    $ save_name = "QUESTION 23"
+    $ ask(23)
     "Question [qnum]. You changed your answer to question [revised_q]. What caused that?"
     $ player_revision = renpy.input("", length=60).strip() or "(no answer)"
     $ record(player_revision, typed=True)
     jump question_24
 
-label question_23:
-    $ save_name = "QUESTION 23"
-    $ ask(23)
+label question_24:
+    $ save_name = "QUESTION 24"
+    $ ask(24)
     "Question [qnum]. You have not revised any answer."
     menu:
         "I was certain":
@@ -335,9 +344,9 @@ label question_23:
         "revising did not occur to me":
             $ record("did not occur")
 
-label question_24:
-    $ save_name = "QUESTION 24"
-    $ ask(24)
+label question_25:
+    $ save_name = "QUESTION 25"
+    $ ask(25)
     "Question [qnum]. Does this intake require a ninth reading?"
     menu:
         "yes":
@@ -347,9 +356,9 @@ label question_24:
         "this question was not addressed to me":
             $ record("not addressed")
     
-label question_25:
+label question_26:
     $ save_name = ""
-    $ ask(25)
+    $ ask(26)
     window hide
     menu:
         "I accept what has happened.":

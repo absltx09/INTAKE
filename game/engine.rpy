@@ -10,7 +10,7 @@ image royce_family = Placeholder("bg", text="ROYCE FAMILY PHOTO")
 image god_blur = Placeholder("bg", text="")
 
 # State
-default player_name = "New Employee"
+default persistent.player_name = "New Employee"
 default player_day = "Day"
 default player_time = "Time"
 default player_contact = "Emergency Contact"
@@ -25,7 +25,7 @@ default revisions = 0
 default revised_q = 0
 default confidence = 12
 default qnum = 0
-default qtotal = 25
+default qtotal = 26
 default q_label = 0
 default t0 = 0.0
 default q15_removed = set()
@@ -96,7 +96,7 @@ init python:
     def save_cross_game():
         mp.predicted = "fear" if store.tally["fear"] > store.tally["respect"] else "respect"
         mp.contact = (store.player_day, store.player_time)
-        mp.name = store.player_name
+        mp.name = store.persistent.player_name
         mp.save()
 
     def save_copy():
@@ -173,6 +173,9 @@ style council_button_text is button_text:
 # Choice screen
 screen choice(items):
     style_prefix skin
+    default idle = 0
+    timer 20.0 repeat True action SetScreenVariable("idle", idle + 1)
+    
     vbox:
         xalign 0.08
         yalign 0.62
@@ -182,6 +185,10 @@ screen choice(items):
                 action i.action
                 hovered (Function(sfx, "audio/breath.ogg") if breath else None)
                 unhovered (Stop("sound") if breath else None)
+    if idle == 1:
+        text "Take your time." font MONO size 12 color "#6e6a64" xalign 0.08 yalign 0.92
+    elif idle >= 2:
+        text "We can wait longer than you can." font MONO size 12 color "#912925" xalign 0.08 yalign 0.92
 
 # Status column
 screen hud():
@@ -234,7 +241,7 @@ screen intake_result():
     vbox:
         xpos 60 ypos 40 spacing 8
         text "CANDIDATE FILE" font MONO size 13 color "#6e6a64"
-        text "[player_name!u]" font MONO size 30 color "#f9e8ac"
+        text "[persistent.player_name!u]" font MONO size 30 color "#f9e8ac"
         null height 8
         text "CONTACT ........... [player_day!u] / [player_time!u]" font MONO size 13 color "#c9c6bf"
         text "NOTIFY ............ [player_contact!u]" font MONO size 13 color "#c9c6bf"
