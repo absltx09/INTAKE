@@ -37,7 +37,9 @@ label main_menu:
 
 # recording questions
 init python:
-    import math
+    import os, math, random
+
+    VESOLER_LETTERS: "RKAELMNTCHJPW"
 
     config.keymap["game_menu"] = []
     config.keymap["skip"] = []
@@ -94,13 +96,12 @@ init python:
         renpy.music.set_pause(not on, channel="music")
 
     def save_cross_game():
-        mp.predicted = "fear" if store.tally["fear"] > store.tally["respect"] else "respect"
-        mp.contact = (store.player_day, store.player_time)
-        mp.name = store.persistent.player_name
-        mp.save()
+        abslt_registry.predicted = "fear" if store.tally["fear"] > store.tally["respect"] else "respect"
+        abslt_registry.contact = (store.player_day, store.player_time)
+        abslt_registry.name = store.persistent.player_name
+        abslt_registry.save()
 
     def save_copy():
-        import os
         if renpy.emscripten:
             renpy.notify("A copy cannot be given to you here. A copy has been kept.")
             return None
@@ -121,7 +122,37 @@ init python:
         renpy.notify("A copy could not be saved. A copy has also been kept.")
         return None
 
-    mp = MultiPersistent("abslt.registry") 
+    abslt_registry = MultiPersistent("abslt.registry") 
+
+    def vesoler_check_letter(n):
+        d = [int(c) for c in "%04d" % n]
+        return VESOLER_LETTERS[(3 * d[0] + 7 * d[1] + d[2] + 9 * d[3]) % 13]
+
+    def vesoler_make_id(n):
+        return "SC-%04d-%s" % (n, vesoler_check_letter(n))
+
+    def vesoler_profile(n):
+        return "ABCD"[n % 4]
+
+    def vesoler_assign_id():
+        if abslt_registry.candidate_id is None:
+            n = renpy.random.randint(0, 9999)
+            abslt_registry.candidate_number = n
+            abslt_registry.candidate_id = vesoler_make_id(n)
+            abslt_registry.candidate_profile = vesoler_profile(n)
+            abslt_registry.save()
+        return abslt_registry.candidate_id
+
+    ONBOARDING = """Samsara Staffing
+    A Royce Technologies Samsara Company
+
+    Dear candidate {cid},
+
+    Thank you for completing the staffing survey. Your profile is {profile}.
+
+    Your result card reads RESIDUE: NONE DETECTED and VESOLER INDEX: NOT MEASURABLE.
+    """
+
 
 label after_load:
     $ config.window_title = title_now
