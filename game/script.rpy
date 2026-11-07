@@ -378,5 +378,9 @@ label intake_end:
     call screen intake_result
     window auto
     scene black
+    $ vesoler_assign_id()
+    $ vesoler_write_onboarding()
+    call screen vesoler_result_card
+    scene black
     "WE WILL CONTACT YOU ON [player_day!u] AT [player_time!u]."
     $ renpy.quit()

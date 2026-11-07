@@ -151,8 +151,25 @@ init python:
     Thank you for completing the staffing survey. Your profile is {profile}.
 
     Your result card reads RESIDUE: NONE DETECTED and VESOLER INDEX: NOT MEASURABLE.
+    This means our instruments could not read you.
+
+    Please continue at the Royce Technologies Samsara candidate portal with your ID.
+
+    We look forward to working with you. We'll be in touch. 
+    Best wishes,
+    Samsara Staffing
     """
 
+    def vesoler_write_onboarding():
+        cid = abslt_registry.candidate_id
+        if not cid:
+            return
+        path = os.path.join(config.basedir, "ONBOARDING_%s.txt" % cid)
+        try:
+            with open(path, "w") as f:
+                f.write(ONBOARDING.format(cid=cid, profile=abslt_registry.candidate_profile))
+        except Exception:
+            pass 
 
 label after_load:
     $ config.window_title = title_now
@@ -294,6 +311,24 @@ screen intake_result():
         xpos 60 yalign 0.95 spacing 20
         textbutton "SAVE A COPY" action Function(save_copy) text_font MONO text_size 13 text_color "#d4af37"
         textbutton "CLOSE" action Return() text_font MONO text_size 13 text_color "#d4af37"
+
+screen vesoler_result_card():
+    modal True
+    frame:
+        xalign 0.5 yalign 0.5 padding (48, 40)
+        vbox:
+            spacing 10
+            text "RESULT" size 28
+            text "RESIDUE: NONE DETECTED"
+            text "VESOLER INDEX: NOT MEASURABLE"
+            null height 12
+            text "CANDIDATE ID [abslt_registry.candidate_id]" size 30
+            text "PROFILE [abslt_registry.candidate_profile]" 
+            null height 12
+            text "Samsara Staffing, a Royce Technologies Samsara company." size 18
+            text "Continue at the Royce Technologies Samsara candidate portal." size 18
+            null height 16
+            textbutton "Close" action Return()
 
 
 
