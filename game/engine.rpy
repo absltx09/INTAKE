@@ -300,35 +300,39 @@ screen intake_result():
         text "PREDICTED METHOD .. [pm]" font MONO size 13 color "#c9c6bf"
         text "OBSERVATION CONF .. [confidence]%" font MONO size 13 color "#c9c6bf"
         null height 14
-        text "CANDIDATE POTENTIAL ..... NOT DETECTED" font MONO size 15 color "#912925"
+        text "VESOLER INDEX ........... NOT MEASURABLE" font MONO size 15 color "#912925"
         text "PLACEMENT ............... ROYCE TECHNOLOGIES" font MONO size 13 color "#c9c6bf"
         null height 14
         text "The instrument continues to measure capability. Results filed and held." font MONO size 12 color "#c9c6bf"
         text "[[ WITHHELD ]" font MONO size 12 color "#6e6a64"
         null height 14
         text "REVIEWED _______________" font MONO size 12 color "#6e6a64"
+        text "CANDIDATE ID [abslt_registry.candidate_id]" font MONO size 15 color "#c9c6bf"
+        text "PROFILE [abslt_registry.candidate_profile]" font MONO size 15 color "#c9c6bf"
+        text "Continue at the Royce Technologies Samsara candidate portal." font MONO size 18 color "#d4af37"
+
     hbox:
         xpos 60 yalign 0.95 spacing 20
         textbutton "SAVE A COPY" action Function(save_copy) text_font MONO text_size 13 text_color "#d4af37"
         textbutton "CLOSE" action Return() text_font MONO text_size 13 text_color "#d4af37"
 
-screen vesoler_result_card():
-    modal True
-    frame:
-        xalign 0.5 yalign 0.5 padding (48, 40)
-        vbox:
-            spacing 10
-            text "RESULT" size 28
-            text "RESIDUE: NONE DETECTED"
-            text "VESOLER INDEX: NOT MEASURABLE"
-            null height 12
-            text "CANDIDATE ID [abslt_registry.candidate_id]" size 30
-            text "PROFILE [abslt_registry.candidate_profile]" 
-            null height 12
-            text "Samsara Staffing, a Royce Technologies Samsara company." size 18
-            text "Continue at the Royce Technologies Samsara candidate portal." size 18
-            null height 16
-            textbutton "Close" action Return()
+## screen vesoler_result_card():
+    ## modal True
+    ## frame:
+        ## xalign 0.5 yalign 0.5 padding (48, 40)
+        ## vbox:
+          ## spacing 10
+            ## text "RESULT" size 28
+            ## text "RESIDUE: NONE DETECTED"
+            ## text "VESOLER INDEX: NOT MEASURABLE"
+            ## null height 12
+            ## text "CANDIDATE ID [abslt_registry.candidate_id]" size 30
+            ## text "PROFILE [abslt_registry.candidate_profile]" 
+            ## null height 12
+            ## text "Samsara Staffing, a Royce Technologies Samsara company." size 18
+            ## text "Continue at the Royce Technologies Samsara candidate portal." size 18
+            ## null height 16
+            ## textbutton "Close" action Return()
 
 
 
