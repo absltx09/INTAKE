@@ -371,8 +371,6 @@ label question_26:
 label intake_end:
     $ persistent.completed = True
     $ save_cross_game()
-    $ vesoler_assign_id()
-    $ vesoler_write_onboarding()
     window show
     "Thank you for your participation. Your file has been forwarded."
     hide screen hud
@@ -380,6 +378,9 @@ label intake_end:
     call screen intake_result
     window auto
     scene black
-    
-    "WE WILL CONTACT YOU ON [player_day] AT [player_time]."
+    $ vesoler_assign_id()
+    $ vesoler_write_onboarding()
+    call screen vesoler_result_card
+    scene black
+    "WE WILL CONTACT YOU ON [player_day!u] AT [player_time!u]."
     $ renpy.quit()
